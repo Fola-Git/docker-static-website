@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Docker and NGINX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to the Docker and NGINX Tutorial</h1>
+    <p>Learn how to deploy a static website using Docker and NGINX</p>
+</header>
+
+<section>
+    <h2>What is Docker?</h2>
+    <p>
+        Docker is an open platform for developing, shipping, and running applications. It allows you to package
+        applications and their dependencies into a container, which can be run consistently across different
+        environments.
+    </p>
+    <p>
+        A <strong>Docker image</strong> is a template used to create containers. It contains everything needed to run an application:
+        code, runtime, libraries, environment variables, and configurations. A <strong>Docker container</strong> is a running
+        instance of an image.
+    </p>
+    <p>In this tutorial, we'll use Docker to run a static website served by NGINX.</p>
+</section>
+
+<section>
+    <h2>What is NGINX?</h2>
+    <p>
+        NGINX is a high-performance web server that can also be used as a reverse proxy, load balancer, and HTTP cache.
+        In our case, we'll use NGINX to serve static files (HTML, CSS, JavaScript) for our website.
+    </p>
+</section>
+
+<section>
+    <h2>What is a Dockerfile?</h2>
+    <p>
+        A <strong>Dockerfile</strong> is a text document that contains instructions to build a Docker image. It specifies the base image,
+        copies application files, installs dependencies, and sets up the environment for the application.
+    </p>
+    <p>In our example, the Dockerfile uses the official NGINX image and copies our website files into the appropriate directory for NGINX to serve.</p>
+</section>
+
+<section>
+    <h2>Step-by-Step: Creating and Running a Docker Image</h2>
+    <ol>
+        <li><strong>Create the project directory:</strong> Use the following command to create a directory where your files will be stored:
+            <pre><code>mkdir static-website</code></pre>
+        </li>
+        <li><strong>Create an HTML file:</strong> Inside the directory, create an <code>index.html</code> file. This will be the main webpage.
+            Add the HTML content you want to display.
+            <pre><code>nano index.html</code></pre>
+        </li>
+        <li><strong>Create a Dockerfile:</strong> Inside the same directory, create a Dockerfile with the following content:
+            <pre><code>nano Dockerfile</code></pre>
+            <pre><code>
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+            </code></pre>
+        </li>
+        <li><strong>Build the Docker image:</strong> In the terminal, run the following command to build the Docker image:
+            <pre><code>docker build -t my-static-website .</code></pre>
+            This command creates a Docker image named <code>my-static-website</code>.
+        </li>
+        <li><strong>Run the Docker container:</strong> After building the image, run it in a container using:
+            <pre><code>docker run -d -p 8080:80 my-static-website</code></pre>
+            This command maps port <code>8080</code> on your local machine to port <code>80</code> inside the container.
+        </li>
+        <li><strong>Access the website:</strong> Open your browser and go to:
+            <pre><code>http://localhost:8080</code></pre>
+            You should see the website you created!
+        </li>
+    </ol>
+</section>
+
+<section>
+    <h2>Understanding the Dockerfile</h2>
+    <p>
+        Let's break down the content of the <code>Dockerfile</code>:
+    </p>
+    <ul>
+        <li><code>FROM nginx:alpine</code>: This tells Docker to use the official NGINX image with the Alpine Linux distribution. Alpine is a lightweight version of Linux, making the image smaller and faster to download and run.</li>
+        <li><code>COPY . /usr/share/nginx/html</code>: This copies all the files from the current directory (the one containing the Dockerfile and index.html) into the <code>/usr/share/nginx/html</code> directory inside the container. This is the directory NGINX uses to serve static files.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Next Steps</h2>
+    <p>
+        You've successfully created a custom Docker image and deployed a simple static website with NGINX. Here are some next steps you can take:
+    </p>
+    <ul>
+        <li><strong>Customize the Website:</strong> Add more HTML, CSS, or JavaScript files to create a more interactive site.</li>
+        <li><strong>Push to Docker Hub:</strong> Push your custom image to Docker Hub to share with others.</li>
+        <li><strong>Learn about Docker Compose:</strong> If you want to run multi-container applications, explore Docker Compose.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>Happy Learning! - Powered by Docker and NGINX</p>
+</footer>
+
+</body>
+</html>
