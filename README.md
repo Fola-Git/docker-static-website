@@ -75,4 +75,3 @@ You can view the live website by visiting the following link:
 ## Conclusion
 
 This project serves as a practical demonstration of deploying a static website using Docker and NGINX, showcasing the ease of web hosting with containerization. Feel free to explore the code and modify it to create your own static website!
-```
